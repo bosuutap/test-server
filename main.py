@@ -16,10 +16,7 @@ def post_servers():
         @sio.on("online")
         def get_onliners(event):
             nonlocal count
-            name = event.get("name")
-            prefix = event.get("prefix")
-            sid = request.sid
-            epoints.append({"id":sid, "name":name, "prefix":prefix})
+            epoints.append(event)
             count += 1
         time.sleep(3)
         return {"count": count,"list": epoints}
