@@ -10,28 +10,26 @@ sio = SocketIO(app, cors_allowed_origins='*')
 @app.route("/", methods=["GET","POST"])
 def post_servers():
     base_url = request.url.split("://")[1].split("/")[0]
-    if request.method == "GET":
-        sio.emit("list")
-        count = 0
-        epoints = []
-        @sio.on("online")
-        def get_onliners(event):
-            nonlocal count
-            epoints.append(event)
-            count += 1
-        time.sleep(3)
-        return {"count": count,"list": epoints}
-    else:
-        data = request.get_json()
-        url = data.get("url")
-        sid = data.get("id")
-        
-        try:
-            n_o = randint(1000, 9999)
-            sio.call("init", {"url": url, "n_o": n_o},to=sid, timeout=10)
-            return base_url + str(sid)
-        except:
-            return "TIMEOUT"
+    sio.emit("list")
+    count = 0
+    epoints = []
+    @sio.on("online")
+    def get_onliners(event):
+        nonlocal count
+        epoints.append(event)
+        count += 1
+    time.sleep(3)
+    return {"count": count,"list": epoints}
+
+@app.route("/test")
+    url = request.args.get("url")
+    sid = request.args.get("id")
+    try:
+        n_o = randint(1000, 9999)
+        sio.call("init", {"url": url, "n_o": n_o},to=sid, timeout=10)
+        return base_url + str(sid) + str(n_o)
+    except:
+        return "TIMEOUT"
            
 results = set()
 
