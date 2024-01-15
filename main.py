@@ -24,7 +24,7 @@ def post_servers():
 def get_sid_info(prefix):
     base_url = request.url.replace(f"/{prefix}", "")
     sio.emit("info", prefix)
-    sid = ""
+    sid = None
     @sio.on("info")
     def get_onliners(event):
         nonlocal target
