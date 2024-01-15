@@ -20,11 +20,26 @@ def post_servers():
     time.sleep(3)
     return {"count": count,"list": epoints}
 
-@app.route("/test")
-def handle_test():
-    base_url = request.url.replace("/test", "")
+@app.route("/<prefix>")
+def get_sid_info(prefix):
+    base_url = request.url.replace(f"/{prefix}", "")
+    sio.emit("info", prefix)
+    sid = ""
+    @sio.on("info")
+    def get_onliners(event):
+        nonlocal target
+        sid = event
+    time.sleep(5)
+    if sid:
+        return f"{base_url}/{sid}"
+    else:
+        return "TIMEOUT"
+        
+
+@app.route("/<sid>")
+def handle_test(sid):
+    base_url = request.url.replace(f"/{sid}", "")
     url = request.args.get("url")
-    sid = request.args.get("id")
     try:
         n_o = randint(1000, 9999)
         sio.call("init", {"url": url, "n_o": n_o},to=sid, timeout=10)
