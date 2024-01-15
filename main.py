@@ -43,7 +43,7 @@ def handle_test(sid):
     try:
         n_o = f"NO{randint(1000, 9999)}"
         sio.call("init", {"url": url, "n_o": n_o},to=sid, timeout=10)
-        return redirect(f"{base_url}/get/{sid}/{n_o}")
+        return redirect(f"{base_url}/get/{sid}/{n_o}"), 301
     except Exception as e:
         return str(e)
            
