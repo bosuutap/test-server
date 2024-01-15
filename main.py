@@ -25,11 +25,13 @@ def post_servers():
         url = data.get("url")
         sid = data.get("id")
         try:
-            sio.call("lite", {"prefix": prefix, "url": url}, timeout=10)
+            sio.call("lite", {"url": url},to=sid, timeout=10)
             return base_url + str(sid)
         except:
             return "TIMEOUT"
-            
+           
+results = set()
+
 @app.route("/<sid>")
 def start_testing(sid):
     url = request.args.get("url")
@@ -45,5 +47,9 @@ def start_testing(sid):
         continue
     return jsonify(result)
             
+@sio.on("lite")
+def get_result(data):
+    global results
+    results.add([request.sid, data])
         
         
