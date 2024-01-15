@@ -22,19 +22,12 @@ def post_servers():
         return {"count": count,"list": epoints}
     else:
         data = request.get_json()
-        prefix = data.get("prefix")
-        sio.emit("status", prefix)
-        sid = None
-        @sio.on("status")
-        def if_online(ev):
-            nonlocal sid
-            sid = request.sid
-        before = time.time()
-        while time.time() - before > 3 or sid:
-            break
-        if sid:
+        url = data.get("url")
+        sid = data.get("id")
+        try:
+            sio.call("lite", {"prefix": prefix, "url": url}, timeout=10)
             return base_url + str(sid)
-        else:
+        except:
             return "TIMEOUT"
             
 @app.route("/<sid>")
