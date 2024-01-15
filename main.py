@@ -2,6 +2,8 @@ from flask import Flask, request, send_file, jsonify, redirect
 from flask_socketio import SocketIO, send, emit, call
 import time
 from random import randint
+import eventlet
+eventlet.monkey_patch()
 
 app = Flask("Transition Point")
 app.config['SECRET_KEY'] = 'secret!'
