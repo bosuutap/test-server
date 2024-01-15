@@ -9,7 +9,6 @@ sio = SocketIO(app, cors_allowed_origins='*')
 
 @app.route("/", methods=["GET","POST"])
 def post_servers():
-    base_url = request.url.split("://")[1].split("/")[0]
     sio.emit("list")
     count = 0
     epoints = []
@@ -22,12 +21,14 @@ def post_servers():
     return {"count": count,"list": epoints}
 
 @app.route("/test")
+def handle_test():
+    base_url = request.url.replace("/test", "")
     url = request.args.get("url")
     sid = request.args.get("id")
     try:
         n_o = randint(1000, 9999)
         sio.call("init", {"url": url, "n_o": n_o},to=sid, timeout=10)
-        return base_url + str(sid) + str(n_o)
+        return redirect(f"{base_url}/{sid}/{n_o}")
     except:
         return "TIMEOUT"
            
