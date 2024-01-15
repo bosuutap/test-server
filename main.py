@@ -31,25 +31,25 @@ def get_sid_info(prefix):
         sid = event
     time.sleep(5)
     if sid:
-        return f"{base_url}/id={sid}"
+        return f"{base_url}/init/{sid}"
     else:
         return "TIMEOUT"
         
 
-@app.route("/id=<sid>")
+@app.route("/init/<sid>")
 def handle_test(sid):
     base_url = request.url.replace(f"/{sid}", "")
     url = request.args.get("url")
     try:
         n_o = randint(1000, 9999)
         sio.call("init", {"url": url, "n_o": n_o},to=sid, timeout=10)
-        return redirect(f"{base_url}/{sid}/{n_o}")
+        return redirect(f"{base_url}/get/{sid}/{n_o}")
     except Exception as e:
         return str(e)
            
 results = set()
 
-@app.route("/<sid>/<n_o>")
+@app.route("/get/<sid>/<n_o>")
 def start_testing(sid, n_o):
     url = request.args.get("url")
     sio.call("done", {"n_o": n_o}, to=sid, timeout=3600)
