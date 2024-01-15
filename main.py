@@ -40,7 +40,7 @@ def post_servers():
 @app.route("/<sid>")
 def start_testing(sid):
     url = request.args.get("url")
-    sio.emit("lite", {"data": url}, to=sid)
+    sio.emit("lite", {"data": url})
     result = None
     @sio.on("lite")
     def get_result(data):
