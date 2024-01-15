@@ -1,6 +1,7 @@
 from flask import Flask, request, send_file, jsonify
 from flask_socketio import SocketIO, send, emit, call
 import time
+from random import randint
 
 app = Flask("Transition Point")
 app.config['SECRET_KEY'] = 'secret!'
@@ -24,32 +25,29 @@ def post_servers():
         data = request.get_json()
         url = data.get("url")
         sid = data.get("id")
+        
         try:
-            sio.call("lite", {"url": url},to=sid, timeout=10)
+            n_o = randint(1000, 9999)
+            sio.call("init", {"url": url, "n_o": n_o},to=sid, timeout=10)
             return base_url + str(sid)
         except:
             return "TIMEOUT"
            
 results = set()
 
-@app.route("/<sid>")
-def start_testing(sid):
+@app.route("/<sid>/<n_o>")
+def start_testing(sid, n_o):
     url = request.args.get("url")
-    sio.emit("lite", {"data": url})
-    result = None
-    @sio.on("lite")
-    def get_result(data):
-        nonlocal result
-        if request.sid == sid:
-            result = data
-    start = time.time()
-    while not result or time.time() - start < 3600:
-        continue
-    return jsonify(result)
+    sio.call("done", {"n_o": n_o}, to=sid, timeout=3600)
+    result = 
+    for r in results:
+        if r[0] == n_o:
+            result = r[1]
+    return result
             
-@sio.on("lite")
+@sio.on("done")
 def get_result(data):
     global results
-    results.add([request.sid, data])
+    results.add([data["n_o"], data])
         
         
