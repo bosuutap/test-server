@@ -22,9 +22,7 @@ def post_servers():
             epoints.append({"id":sid, "name":name, "prefix":prefix})
             count += 1
         start_time = time.time()
-        while True:
-            if time.time() - start_time == 3:
-                break
+        time.sleep(3)
         return {"count": count,"list": epoints}
     else:
         data = request.get_json()
