@@ -27,7 +27,7 @@ def get_sid_info(prefix):
     sid = None
     @sio.on("info")
     def get_onliners(event):
-        nonlocal target
+        nonlocal sid
         sid = event
     time.sleep(5)
     if sid:
