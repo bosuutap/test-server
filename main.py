@@ -40,7 +40,16 @@ def post_servers():
 @app.route("/<sid>")
 def start_testing(sid):
     url = request.args.get("url")
-    result = sio.call("lite", {"data": url}, to=sid)
+    sio.emit("lite", {"data": url}, to=sid)
+    result = None
+    @sio.on("lite")
+    def get_result(data):
+        nonlocal result
+        if request.sid == sid:
+            result = data
+    start = time.time()
+    while not result or time.time() - start < 3600:
+        continue
     return jsonify(result)
             
         
