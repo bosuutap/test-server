@@ -31,12 +31,12 @@ def get_sid_info(prefix):
         sid = event
     time.sleep(5)
     if sid:
-        return f"{base_url}/{sid}"
+        return f"{base_url}/id={sid}"
     else:
         return "TIMEOUT"
         
 
-@app.route("/<sid>")
+@app.route("/id=<sid>")
 def handle_test(sid):
     base_url = request.url.replace(f"/{sid}", "")
     url = request.args.get("url")
