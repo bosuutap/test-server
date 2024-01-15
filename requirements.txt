@@ -2,4 +2,4 @@ flask
 flask-socketio
 eventlet
 requests
-gevent
+gevent-websocket
