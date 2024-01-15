@@ -41,7 +41,7 @@ def handle_test(sid):
     base_url = request.url.replace(f"/{sid}", "")
     url = request.args.get("url")
     try:
-        n_o = randint(1000, 9999)
+        n_o = f"NO{randint(1000, 9999)}"
         sio.call("init", {"url": url, "n_o": n_o},to=sid, timeout=10)
         return redirect(f"{base_url}/get/{sid}/{n_o}")
     except Exception as e:
