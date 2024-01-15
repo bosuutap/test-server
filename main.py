@@ -36,7 +36,7 @@ def post_servers():
         if sid:
             return base_url + str(sid)
         else:
-            return "FAIL"
+            return "TIMEOUT"
             
 @app.route("/<sid>")
 def start_testing(sid):
