@@ -21,7 +21,6 @@ def post_servers():
             sid = request.sid
             epoints.append({"id":sid, "name":name, "prefix":prefix})
             count += 1
-        start_time = time.time()
         time.sleep(3)
         return {"count": count,"list": epoints}
     else:
