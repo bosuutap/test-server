@@ -44,8 +44,8 @@ def handle_test(sid):
         n_o = randint(1000, 9999)
         sio.call("init", {"url": url, "n_o": n_o},to=sid, timeout=10)
         return redirect(f"{base_url}/{sid}/{n_o}")
-    except:
-        return "TIMEOUT"
+    except Exception as e:
+        return str(e)
            
 results = set()
 
