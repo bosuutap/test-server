@@ -22,7 +22,7 @@ def post_servers():
 
 @app.route("/<prefix>")
 def get_sid_info(prefix):
-    base_url = request.url.replace(f"/{prefix}", "")
+    base_url = request.url.split("?")[0].replace(f"/{prefix}", "")
     sio.emit("info", prefix)
     sid = None
     @sio.on("info")
