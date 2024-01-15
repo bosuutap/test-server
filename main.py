@@ -57,6 +57,7 @@ def start_testing(sid, n_o):
     for r in results:
         if r[0] == n_o:
             result = r[1]
+            results.discard(r)
     return result
             
 @sio.on("done")
