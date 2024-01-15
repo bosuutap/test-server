@@ -13,7 +13,7 @@ def post_servers():
     sio.emit("list")
     count = 0
     epoints = []
-    @sio.on("online")
+    @sio.on("list")
     def get_onliners(event):
         nonlocal count
         epoints.append(event)
