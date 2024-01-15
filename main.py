@@ -37,7 +37,7 @@ results = set()
 def start_testing(sid, n_o):
     url = request.args.get("url")
     sio.call("done", {"n_o": n_o}, to=sid, timeout=3600)
-    result = 
+    result = ""
     for r in results:
         if r[0] == n_o:
             result = r[1]
