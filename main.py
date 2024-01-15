@@ -34,6 +34,8 @@ def post_servers():
             sid = request.sid
         start_time = time.time()
         while True:
+            if sid:
+                break
             if time.time() - start_time == 3:
                 break
         if sid:
