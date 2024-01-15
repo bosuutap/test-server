@@ -32,12 +32,7 @@ def post_servers():
         def if_online(ev):
             nonlocal sid
             sid = request.sid
-        start_time = time.time()
-        while True:
-            if sid:
-                break
-            if time.time() - start_time == 3:
-                break
+        time.sleep(3)
         if sid:
             return base_url + str(sid)
         else:
