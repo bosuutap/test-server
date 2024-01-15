@@ -40,7 +40,7 @@ def post_servers():
 @app.route("/<sid>")
 def start_testing(sid):
     url = request.args.get("url")
-    result = sio.call("lite", url, to=sid)
+    result = sio.call("lite", {"data": url}, to=sid)
     return jsonify(result)
             
         
