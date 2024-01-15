@@ -8,7 +8,7 @@ if __name__ == '__main__':
     import eventlet
     from eventlet import wsgi
     # Create a WSGI server instance
-    wsgi_server = eventlet.listen(('0.0.0.0', PORT))
+    wsgi_server = eventlet.listen(('0.0.0.0', int(PORT)))
     # Wrap the Flask app with Socket.IO
     socketio.attach(app, server=wsgi_server)
     # Run the eventlet WSGI server
