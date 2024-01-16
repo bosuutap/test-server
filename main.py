@@ -68,10 +68,10 @@ def restart_server():
     
 @app.route("/update", methods=["POST"])
 def update_server():
+    sio.emit("update")
     os.system('git config --global user.name "Server"')
     os.system('git config --global user.email "duongchantroi@alwaysdata.net"')
     os.system('git add * && git commit -a -m "Update"')
     os.system("git pull")
-    sio.emit("update")
     os.execl(sys.executable, sys.executable, *sys.argv)
-    return
+    return ""
