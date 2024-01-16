@@ -10,11 +10,6 @@ app = Flask("Transition Point")
 app.config['SECRET_KEY'] = 'secret!'
 sio = SocketIO(app, cors_allowed_origins='*')
 
-@app.route("/reset", methods=["POST"])
-def restart_server():
-    os.execl(sys.executable, sys.executable, *sys.argv)
-    return "Chương trình đã đóng"
-
 @app.route("/", methods=["GET","POST"])
 def post_servers():
     sio.emit("list")
@@ -65,3 +60,8 @@ def handle_test(sid):
         return {"image": image, "name": name, "location": location, "org": org}
     except Exception as e:
         return "Error:" + str(e)
+        
+@app.route("/reset", methods=["POST"])
+def restart_server():
+    os.execl(sys.executable, sys.executable, *sys.argv)
+    return "Chương trình đã đóng"
