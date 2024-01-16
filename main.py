@@ -47,7 +47,7 @@ def handle_test(sid):
         result = data
     url = request.args.get("url")
     try:
-        sio.call("test", {"url": url},to=sid, timeout=10000)
+        sio.call("test", {"url": url},to=sid, timeout=3000)
         if not result:
             time.sleep(3)
         print(result)
