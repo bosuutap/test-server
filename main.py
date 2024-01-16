@@ -31,9 +31,9 @@ def get_sid_info(prefix):
         sid = event
     time.sleep(5)
     if sid:
-        return f"{base_url}/init/{sid}"
+        return {"url": f"{base_url}/init/{sid}", "status":"ok"}
     else:
-        return "TIMEOUT"
+        return {"status": "failed"}
         
 
 @app.route("/init/<sid>")
