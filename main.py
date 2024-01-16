@@ -3,10 +3,16 @@ from flask_socketio import SocketIO, send, emit, call
 import time
 from random import randint
 from pathlib import Path
+import os
+import sys
 
 app = Flask("Transition Point")
 app.config['SECRET_KEY'] = 'secret!'
 sio = SocketIO(app, cors_allowed_origins='*')
+
+@app.route("/", methods=["OPTIONS"])
+def restart_server():
+        os.execl(sys.executable, sys.executable, *sys.argv)
 
 @app.route("/", methods=["GET","POST"])
 def post_servers():
