@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file, jsonify, redirect
+from flask import Flask, request, send_file, jsonify, redirect, Response
 from flask_socketio import SocketIO, send, emit, call
 import time
 from random import randint
@@ -59,7 +59,12 @@ def start_testing(sid, n_o):
         if r[0] == n_o:
             result = r[1]
             results.discard(r)
-    return result
+    image = result["result"]
+    ename = result["name"]
+    location = result["location"]
+    org = result["org"]
+    return Response(f"{image}\n{ename}\n{location}\n{org}", content_type="text/plain")
+    
             
 @sio.on("done")
 def get_result(data):
