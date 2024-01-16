@@ -32,7 +32,7 @@ def get_sid_info(prefix):
         sid = event
     time.sleep(5)
     if sid:
-        return {"url": f"{base_url}/init/{sid}", "status":"ok"}
+        return {"url": f"{base_url}/test/{sid}", "status":"ok"}
     else:
         return {"status": "failed"}
         
