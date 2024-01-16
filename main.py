@@ -56,7 +56,7 @@ def start_testing(sid, n_o):
         result = data
     sio.call("done", {"n_o": n_o}, to=sid, timeout=3600)
     if not result:
-        sio.call("send?", to=sid)
+        sio.call("send",{"n_o": n_o}, to=sid)
     image = result["result"]
     ename = result["name"]
     location = result["location"]
