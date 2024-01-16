@@ -36,7 +36,6 @@ def get_sid_info(prefix):
     else:
         return {"status": "failed"}
         
-
 @app.route("/test/<sid>")
 def handle_test(sid):
     base_url = request.url.split("/test")[0]
