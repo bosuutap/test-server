@@ -47,28 +47,22 @@ def handle_test(sid):
     except Exception as e:
         return str(e)
            
-results = set()
-
 @app.route("/get/<sid>/<n_o>")
 def start_testing(sid, n_o):
     url = request.args.get("url")
     sio.call("done", {"n_o": n_o}, to=sid, timeout=3600)
-    time.sleep(3)
-    result = ""
-    for r in results:
-        if r[0] == n_o:
-            result = r[1]
-            results.discard(r)
+    result = None
+    @sio.on("done")
+    def get_result(data):
+        result = data
+    if not result:
+        sio.call("send?", to=sid)
     image = result["result"]
     ename = result["name"]
     location = result["location"]
     org = result["org"]
     return Response(f"{image}\n{ename}\n{location}\n{org}", content_type="text/plain")
     
-            
-@sio.on("done")
-def get_result(data):
-    global results
-    results.add([data["n_o"], data])
+           
         
         
