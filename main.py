@@ -51,7 +51,7 @@ def handle_test(sid):
             time.sleep(3)
         print(result)
         image = result["image"]
-        ename = result["name"]
+        name = result["name"]
         location = result["location"]
         org = result["org"]
         return {"image": image, "name": name, "location": location, "org": org}
