@@ -10,7 +10,7 @@ app = Flask("Transition Point")
 app.config['SECRET_KEY'] = 'secret!'
 sio = SocketIO(app, cors_allowed_origins='*')
 
-@app.route("/reset", methods=["OPTIONS"])
+@app.route("/reset", methods=["POST"])
 def restart_server():
     os.execl(sys.executable, sys.executable, *sys.argv)
     return "Chương trình đã đóng"
