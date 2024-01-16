@@ -27,9 +27,10 @@ def get_sid_info(prefix):
     sio.emit("info", prefix)
     sid = None
     @sio.on("info")
-    def get_onliners(event):
+    def get_client_info(event):
         nonlocal sid
-        sid = event
+        if event.get("prefix") == prefix:
+            sid = event.get("id")
     time.sleep(5)
     if sid:
         return {"url": f"{base_url}/test/{sid}", "status":"ok"}
