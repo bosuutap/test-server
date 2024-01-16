@@ -41,29 +41,21 @@ def get_sid_info(prefix):
 def handle_test(sid):
     base_url = request.url.split("/test")[0]
     result = None
-    @sio.on("done")
+    @sio.on("test")
     def get_result(data):
         nonlocal result
         result = data
     url = request.args.get("url")
     try:
         n_o = f"NO{randint(1000, 9999)}"
-        sio.call("init", {"url": url, "n_o": n_o},to=sid, timeout=10)
-        sio.call("done", {"n_o": n_o}, to=sid, timeout=10000)
+        sio.call("test", {"url": url},to=sid, timeout=10000)
         if not result:
-            sio.call("send",{"n_o": n_o}, to=sid)
+            time.sleep(3)
         print(result)
-        image_path = Path(f"/tmp/{n_o}.png")
-        image_path.write_bytes(result["result"])
-        image = f"{base_url}/{n_o}.png"
+        image = result["image"]
         ename = result["name"]
         location = result["location"]
         org = result["org"]
-        return Response(f"{image}\n{ename}\n{location}\n{org}", content_type="text/plain")
+        return {"image": image, "name": name, "location": location, "org": org}
     except Exception as e:
         return "Error:" + str(e)
-           
-@app.route("/image/<image>")
-def show_image(image):
-    return send_file(f"/tmp/{image}", as_attachmemt=False)
-        
