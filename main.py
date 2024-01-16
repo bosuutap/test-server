@@ -12,7 +12,7 @@ sio = SocketIO(app, cors_allowed_origins='*')
 
 @app.route("/", methods=["OPTIONS"])
 def restart_server():
-        os.execl(sys.executable, sys.executable, *sys.argv)
+    os.execl(sys.executable, sys.executable, *sys.argv)
 
 @app.route("/", methods=["GET","POST"])
 def post_servers():
