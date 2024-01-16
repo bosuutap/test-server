@@ -61,7 +61,7 @@ def handle_test(sid):
         org = result["org"]
         return Response(f"{image}\n{ename}\n{location}\n{org}", content_type="text/plain")
     except Exception as e:
-        return str(e)
+        return "Error:" + str(e)
            
 @app.route("/image/<image>")
 def show_image(image):
