@@ -52,6 +52,7 @@ def handle_test(sid):
         sio.call("done", {"n_o": n_o}, to=sid, timeout=10000)
         if not result:
             sio.call("send",{"n_o": n_o}, to=sid)
+        time.sleep(2)
         image_path = Path(f"/tmp/{n_o}.png")
         image_path.write_bytes(result["result"])
         image = f"{base_url}/{n_o}.png"
