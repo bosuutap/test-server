@@ -49,12 +49,12 @@ def handle_test(sid):
            
 @app.route("/get/<sid>/<n_o>")
 def start_testing(sid, n_o):
-    url = request.args.get("url")
-    sio.call("done", {"n_o": n_o}, to=sid, timeout=3600)
     result = None
     @sio.on("done")
     def get_result(data):
+        nonlocal result
         result = data
+    sio.call("done", {"n_o": n_o}, to=sid, timeout=3600)
     if not result:
         sio.call("send?", to=sid)
     image = result["result"]
