@@ -3,3 +3,4 @@ class DataType:
     LEAVE = 1
     REQ = 2
     RES = 3
+    LIST = 4
