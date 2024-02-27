@@ -15,4 +15,6 @@ def polling():
         server.send(result)
         
 Thread(target=polling).start()
+while True:
+    pass
     
