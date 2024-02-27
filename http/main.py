@@ -19,6 +19,7 @@ def lite(config):
         tag = near.split(" 0 ")[1].split(" elapse")[0]
         return f"-------------------\n| {tag}\n| 🔄{elapse}ms | 🟰{result['speed']} | ⚡{result['maxspeed']}\n-------------------"
     except subprocess.CalledProcessError as e:
+        print(e)
         return ""
         
 @app.route("/")
