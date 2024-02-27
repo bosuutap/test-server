@@ -1,5 +1,1 @@
-flask
-flask-socketio
 requests
-gevent-websocket
-gunicorn
