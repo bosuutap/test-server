@@ -4,7 +4,10 @@ from util import lite
 from threading import Thread
 
 port = os.getenv("PORT", 8080)
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server = socket.socket(
+    socket.AF_INET,
+    socket.SOCK_STREAM
+    )
 server.bind(("0.0.0.0", port))
 server.listen()
 print("Server is running")
