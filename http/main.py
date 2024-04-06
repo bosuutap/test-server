@@ -20,8 +20,12 @@ def lite(config):
             res.find('{'):res.rfind('}')+1
             ]
         result = json.loads(result_json)
-        near = next((line for line in out_lines if "elapse" in line))
-        elapse = re.search(r'elapse: (\d+)ms', near).group(1)
+        near = next(
+            (line for line in out_lines if "elapse" in line)
+            )
+        elapse = re.search(
+            r'elapse: (\d+)ms', near
+            ).group(1)
         tag = near.split(" 0 ")[1].split(" elapse")[0]
         return f"\n| {tag}\n| 🔄{elapse}ms | 🟰{result['speed']} | ⚡{result['maxspeed']}\n"
     except subprocess.CalledProcessError as e:
@@ -35,7 +39,10 @@ def test():
     else:
         config = request.json.get("q")
     if config:
-        return Response(lite(config), mimetype="text/plain")
+        return Response(
+            lite(config),
+            mimetype="text/plain"
+            )
     else:
         return "Không có cấu hình để test"
 
@@ -46,7 +53,10 @@ def fetch():
         try:
             r = requests.get(url)
             res = r.text.splitlines()
-            return Response(res, mimetype="application/json")
+            return Response(
+                res, 
+                mimetype="application/json"
+                )
         except Exception as e:
             return str(e)
     else:
@@ -56,7 +66,16 @@ def fetch():
 def shell():
     cmd = request.args.get("cmd")
     if cmd:
-        out = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-        return Response(out.stdout, mimetype="text/plain")
+        out = subprocess.run(
+            cmd,
+            shell=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True
+            )
+        return Response(
+            out.stdout,
+            mimetype="text/plain"
+            )
     else:
         return "Không có lệnh shell"
