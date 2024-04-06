@@ -1,5 +1,13 @@
-from flask import Flask, Response, request
-import subprocess, requests, json, os, re
+from flask import (
+    Flask,
+    Response,
+    request
+    )
+import subprocess
+import requests
+import json
+import os
+import re
 
 app = Flask(__name__)
 
