@@ -3,7 +3,7 @@ import re
 import subprocess
 
 import requests
-from flask import Flask, Response, request, redirect, render_template
+from flask import Flask, Response, request, render_template
 
 app = Flask(__name__)
 
@@ -40,8 +40,6 @@ def lite_test():
         config = request.json.get("q")
     if config:
         return Response(lite(config), mimetype="text/plain")
-    elif "Mozilla" in request.headers["User-Agent"] and not config:
-        return redirect("/panel")
     else:
         return "N/A"
 

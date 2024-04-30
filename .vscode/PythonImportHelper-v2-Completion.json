@@ -60,14 +60,6 @@
         "documentation": {}
     },
     {
-        "label": "redirect",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
         "label": "render_template",
         "importPath": "flask",
         "description": "flask",
@@ -155,7 +147,7 @@
         "kind": 2,
         "importPath": "http.main",
         "description": "http.main",
-        "peekOfCode": "def lite_test():\n    if request.method == \"GET\":\n        config = request.args.get(\"q\")\n    else:\n        config = request.json.get(\"q\")\n    if config:\n        return Response(lite(config), mimetype=\"text/plain\")\n    elif \"Mozilla\" in request.headers[\"User-Agent\"] and not config:\n        return redirect(\"/panel\")\n    else:",
+        "peekOfCode": "def lite_test():\n    if request.method == \"GET\":\n        config = request.args.get(\"q\")\n    else:\n        config = request.json.get(\"q\")\n    if config:\n        return Response(lite(config), mimetype=\"text/plain\")\n    else:\n        return \"N/A\"\n@app.route(\"/get\")",
         "detail": "http.main",
         "documentation": {}
     },
