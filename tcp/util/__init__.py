@@ -1,1 +1,0 @@
-from .lite_test import lite

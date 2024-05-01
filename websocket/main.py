@@ -1,5 +1,5 @@
-from fastapi import FastAPI, Request, WebSocket
-from lite_test import lite
+from fastapi import FastAPI, WebSocket
+from .lite import lite
 
 app = FastAPI()
 

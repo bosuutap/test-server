@@ -60,23 +60,6 @@
         "documentation": {}
     },
     {
-        "label": "render_template",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "socket",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "socket",
-        "description": "socket",
-        "detail": "socket",
-        "documentation": {}
-    },
-    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
@@ -86,11 +69,12 @@
         "documentation": {}
     },
     {
-        "label": "lite",
-        "importPath": "util",
-        "description": "util",
+        "label": "socket",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "util",
+        "importPath": "socket",
+        "description": "socket",
+        "detail": "socket",
         "documentation": {}
     },
     {
@@ -110,27 +94,11 @@
         "documentation": {}
     },
     {
-        "label": "Request",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
         "label": "WebSocket",
         "importPath": "fastapi",
         "description": "fastapi",
         "isExtraImport": true,
         "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "lite",
-        "importPath": "lite_test",
-        "description": "lite_test",
-        "isExtraImport": true,
-        "detail": "lite_test",
         "documentation": {}
     },
     {
@@ -165,16 +133,7 @@
         "kind": 2,
         "importPath": "http.main",
         "description": "http.main",
-        "peekOfCode": "def shell():\n    cmd = request.args.get(\"cmd\")\n    if cmd:\n        out = subprocess.run(\n            cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True\n        )\n        return Response(out.stdout, mimetype=\"text/plain\")\n    else:\n        return \"Không có lệnh shell\"\n@app.route(\"/panel\")",
-        "detail": "http.main",
-        "documentation": {}
-    },
-    {
-        "label": "test_panel",
-        "kind": 2,
-        "importPath": "http.main",
-        "description": "http.main",
-        "peekOfCode": "def test_panel():\n    return render_template(\"panel.html\")",
+        "peekOfCode": "def shell():\n    cmd = request.args.get(\"cmd\")\n    if cmd:\n        out = subprocess.run(\n            cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True\n        )\n        return Response(out.stdout, mimetype=\"text/plain\")\n    else:\n        return \"Không có lệnh shell\"",
         "detail": "http.main",
         "documentation": {}
     },
@@ -190,10 +149,10 @@
     {
         "label": "lite",
         "kind": 2,
-        "importPath": "tcp.util.lite_test",
-        "description": "tcp.util.lite_test",
-        "peekOfCode": "def lite(config):\n    try:\n        out = subprocess.check_output(\n            [\"./lite\", \"-test\", config],\n            stderr=subprocess.STDOUT,\n            text=True\n            )\n        out_lines = out.splitlines()\n        res = [\n            line for line in out_lines if \"gotspeed\" in line",
-        "detail": "tcp.util.lite_test",
+        "importPath": "tcp.lite",
+        "description": "tcp.lite",
+        "peekOfCode": "def lite(config):\n    try:\n        out = subprocess.check_output(\n            [\"./lite\", \"-test\", config], stderr=subprocess.STDOUT, text=True\n        )\n        out_lines = out.splitlines()\n        res = [line for line in out_lines if \"gotspeed\" in line]\n        if len(res) > 1:\n            res = res[-1]\n        else:",
+        "detail": "tcp.lite",
         "documentation": {}
     },
     {
@@ -201,7 +160,7 @@
         "kind": 2,
         "importPath": "tcp.main",
         "description": "tcp.main",
-        "peekOfCode": "def polling():\n    while server.running:\n        conn, client = server.accept()\n        bytes_data = conn.recv(10*1024*1024)\n        text = bytes_data.decode('utf-8', errors='replace')\n        result = lite(text).encode('utf-8', errors='replace')\n        conn.send(result)\nThread(target=polling).start()\nwhile True:\n    pass",
+        "peekOfCode": "def polling():\n    while server.running:\n        conn, client = server.accept()\n        bytes_data = conn.recv(10 * 1024 * 1024)\n        text = bytes_data.decode(\"utf-8\", errors=\"replace\")\n        result = lite(text).encode(\"utf-8\", errors=\"replace\")\n        conn.send(result)\nThread(target=polling).start()\nwhile True:\n    pass",
         "detail": "tcp.main",
         "documentation": {}
     },
@@ -210,7 +169,7 @@
         "kind": 5,
         "importPath": "tcp.main",
         "description": "tcp.main",
-        "peekOfCode": "port = os.getenv(\"PORT\", 8080)\nserver = socket.socket(\n    socket.AF_INET,\n    socket.SOCK_STREAM\n    )\nserver.bind((\"0.0.0.0\", port))\nserver.listen()\nprint(\"Server is running\")\ndef polling():\n    while server.running:",
+        "peekOfCode": "port = os.getenv(\"PORT\", 8080)\nserver = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\nserver.bind((\"0.0.0.0\", port))\nserver.listen()\nprint(\"Server is running\")\ndef polling():\n    while server.running:\n        conn, client = server.accept()\n        bytes_data = conn.recv(10 * 1024 * 1024)\n        text = bytes_data.decode(\"utf-8\", errors=\"replace\")",
         "detail": "tcp.main",
         "documentation": {}
     },
@@ -219,17 +178,17 @@
         "kind": 5,
         "importPath": "tcp.main",
         "description": "tcp.main",
-        "peekOfCode": "server = socket.socket(\n    socket.AF_INET,\n    socket.SOCK_STREAM\n    )\nserver.bind((\"0.0.0.0\", port))\nserver.listen()\nprint(\"Server is running\")\ndef polling():\n    while server.running:\n        conn, client = server.accept()",
+        "peekOfCode": "server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\nserver.bind((\"0.0.0.0\", port))\nserver.listen()\nprint(\"Server is running\")\ndef polling():\n    while server.running:\n        conn, client = server.accept()\n        bytes_data = conn.recv(10 * 1024 * 1024)\n        text = bytes_data.decode(\"utf-8\", errors=\"replace\")\n        result = lite(text).encode(\"utf-8\", errors=\"replace\")",
         "detail": "tcp.main",
         "documentation": {}
     },
     {
         "label": "lite",
         "kind": 2,
-        "importPath": "websocket.lite_test",
-        "description": "websocket.lite_test",
-        "peekOfCode": "def lite(config):\n    try:\n        out = subprocess.check_output(\n            [\"./lite\", \"-test\", config],\n            stderr=subprocess.STDOUT,\n            text=True\n            )\n        out_lines = out.splitlines()\n        res = [\n            line for line in out_lines if \"gotspeed\" in line",
-        "detail": "websocket.lite_test",
+        "importPath": "websocket.lite",
+        "description": "websocket.lite",
+        "peekOfCode": "def lite(config):\n    try:\n        out = subprocess.check_output(\n            [\"./lite\", \"-test\", config], stderr=subprocess.STDOUT, text=True\n        )\n        out_lines = out.splitlines()\n        res = [line for line in out_lines if \"gotspeed\" in line]\n        if len(res) > 1:\n            res = res[-1]\n        else:",
+        "detail": "websocket.lite",
         "documentation": {}
     },
     {

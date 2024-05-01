@@ -3,7 +3,7 @@ import re
 import subprocess
 
 import requests
-from flask import Flask, Response, request, render_template
+from flask import Flask, Response, request
 
 app = Flask(__name__)
 
@@ -68,8 +68,3 @@ def shell():
         return Response(out.stdout, mimetype="text/plain")
     else:
         return "Không có lệnh shell"
-
-
-@app.route("/panel")
-def test_panel():
-    return render_template("panel.html")
