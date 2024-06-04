@@ -1,5 +1,14 @@
 [
     {
+        "label": "subprocess",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "subprocess",
+        "description": "subprocess",
+        "detail": "subprocess",
+        "documentation": {}
+    },
+    {
         "label": "json",
         "kind": 6,
         "isExtraImport": true,
@@ -15,39 +24,6 @@
         "importPath": "re",
         "description": "re",
         "detail": "re",
-        "documentation": {}
-    },
-    {
-        "label": "subprocess",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "subprocess",
-        "description": "subprocess",
-        "detail": "subprocess",
-        "documentation": {}
-    },
-    {
-        "label": "Flask",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "jsonify",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "request",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
         "documentation": {}
     },
     {
@@ -93,39 +69,27 @@
         "documentation": {}
     },
     {
-        "label": "lite",
-        "kind": 2,
-        "importPath": "http.main",
-        "description": "http.main",
-        "peekOfCode": "def lite(config):\n    try:\n        out = subprocess.check_output(\n            [\"./lite\", \"-config\", \"config.json\", \"-test\", config],\n            stderr=subprocess.STDOUT,\n            text=True,\n        )\n        out_lines = out.splitlines()\n        res = [line for line in out_lines if \"gotspeed\" in line]\n        if len(res) > 1:",
-        "detail": "http.main",
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
         "documentation": {}
     },
     {
-        "label": "lite_test",
-        "kind": 2,
-        "importPath": "http.main",
-        "description": "http.main",
-        "peekOfCode": "def lite_test():\n    if request.method == \"GET\":\n        config = request.args.get(\"q\")\n    else:\n        config = request.json.get(\"q\")\n    if config:\n        return jsonify(lite)\n    else:\n        return \"N/A\"\n@app.route(\"/shell\")",
-        "detail": "http.main",
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
         "documentation": {}
     },
     {
-        "label": "shell",
-        "kind": 2,
-        "importPath": "http.main",
-        "description": "http.main",
-        "peekOfCode": "def shell():\n    cmd = request.args.get(\"cmd\")\n    if cmd:\n        out = subprocess.run(\n            cmd,\n            stdout=subprocess.PIPE,\n            stderr=subprocess.STDOUT,\n            shell=True,\n            text=True,\n            check=True,",
-        "detail": "http.main",
-        "documentation": {}
-    },
-    {
-        "label": "app",
-        "kind": 5,
-        "importPath": "http.main",
-        "description": "http.main",
-        "peekOfCode": "app = Flask(__name__)\ndef lite(config):\n    try:\n        out = subprocess.check_output(\n            [\"./lite\", \"-config\", \"config.json\", \"-test\", config],\n            stderr=subprocess.STDOUT,\n            text=True,\n        )\n        out_lines = out.splitlines()\n        res = [line for line in out_lines if \"gotspeed\" in line]",
-        "detail": "http.main",
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
         "documentation": {}
     },
     {
@@ -180,6 +144,42 @@
         "description": "websocket.main",
         "peekOfCode": "app = FastAPI()\n@app.get(\"/\")\nasync def home():\n    return \"Lite Test Server\"\n@app.websocket(\"/lite\")\nasync def connection(ws: WebSocket):\n    await ws.accept()\n    while True:\n        data = await ws.receive_text()\n        result = lite(data)",
         "detail": "websocket.main",
+        "documentation": {}
+    },
+    {
+        "label": "lite",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def lite(config):\n    try:\n        out = subprocess.check_output(\n            [\"./lite\", \"-config\", \"config.json\", \"-test\", config],\n            stderr=subprocess.STDOUT,\n            text=True,\n        )\n        out_lines = out.splitlines()\n        res = [line for line in out_lines if \"gotspeed\" in line]\n        if len(res) > 1:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "lite_test",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def lite_test():\n    if request.method == \"GET\":\n        config = request.args.get(\"q\")\n    else:\n        config = request.json.get(\"q\")\n    if config:\n        return jsonify(lite)\n    else:\n        return \"N/A\"\n@app.route(\"/shell\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "shell",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def shell():\n    cmd = request.args.get(\"cmd\")\n    if cmd:\n        out = subprocess.run(\n            cmd,\n            stdout=subprocess.PIPE,\n            stderr=subprocess.STDOUT,\n            shell=True,\n            text=True,\n            check=True,",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = Flask(__name__)\ndef lite(config):\n    try:\n        out = subprocess.check_output(\n            [\"./lite\", \"-config\", \"config.json\", \"-test\", config],\n            stderr=subprocess.STDOUT,\n            text=True,\n        )\n        out_lines = out.splitlines()\n        res = [line for line in out_lines if \"gotspeed\" in line]",
+        "detail": "main",
         "documentation": {}
     }
 ]

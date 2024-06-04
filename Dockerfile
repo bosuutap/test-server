@@ -1,8 +1,8 @@
-FROM python:3.11
+FROM python
 
 COPY . .
 RUN pip install -r requirements.txt
-RUN chmod +x ./start.sh
+RUN chmod +x ./start.sh ./lite
 ENV PORT=8080
 EXPOSE 8080
 
