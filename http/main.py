@@ -1,9 +1,7 @@
 import json
 import re
 import subprocess
-
-import requests
-from flask import Flask, Response, request
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
@@ -26,10 +24,15 @@ def lite(config):
         near = next((line for line in out_lines if "elapse" in line))
         elapse = re.search(r"elapse: (\d+)ms", near).group(1)
         tag = near.split(" 0 ")[1].split(" elapse")[0]
-        return f"\n| {tag}\n| 🔄{elapse}ms | 🟰{result['speed']} | ⚡{result['maxspeed']}\n"
+        return dict(
+            fragment=tag,
+            delay=elapse,
+            avg_speed=result["speed"],
+            max_speed=result["maxspeed"],
+        )
     except subprocess.CalledProcessError as e:
         print(e)
-        return ""
+        return dict()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -39,23 +42,9 @@ def lite_test():
     else:
         config = request.json.get("q")
     if config:
-        return Response(lite(config), mimetype="text/plain")
+        return jsonify(lite)
     else:
         return "N/A"
-
-
-@app.route("/get")
-def fetch():
-    url = request.args.get("url")
-    if url:
-        try:
-            r = requests.get(url, timeout=30)
-            res = r.text.splitlines()
-            return Response(res, mimetype="application/json")
-        except Exception as e:
-            return str(e)
-    else:
-        return "Không có tham số URL"
 
 
 @app.route("/shell")
@@ -63,8 +52,13 @@ def shell():
     cmd = request.args.get("cmd")
     if cmd:
         out = subprocess.run(
-            cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            shell=True,
+            text=True,
+            check=True,
         )
-        return Response(out.stdout, mimetype="text/plain")
+        return jsonify(shell=out.stdout)
     else:
         return "Không có lệnh shell"

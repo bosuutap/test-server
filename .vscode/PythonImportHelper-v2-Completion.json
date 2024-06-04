@@ -27,15 +27,6 @@
         "documentation": {}
     },
     {
-        "label": "requests",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "requests",
-        "description": "requests",
-        "detail": "requests",
-        "documentation": {}
-    },
-    {
         "label": "Flask",
         "importPath": "flask",
         "description": "flask",
@@ -44,7 +35,7 @@
         "documentation": {}
     },
     {
-        "label": "Response",
+        "label": "jsonify",
         "importPath": "flask",
         "description": "flask",
         "isExtraImport": true,
@@ -115,16 +106,7 @@
         "kind": 2,
         "importPath": "http.main",
         "description": "http.main",
-        "peekOfCode": "def lite_test():\n    if request.method == \"GET\":\n        config = request.args.get(\"q\")\n    else:\n        config = request.json.get(\"q\")\n    if config:\n        return Response(lite(config), mimetype=\"text/plain\")\n    else:\n        return \"N/A\"\n@app.route(\"/get\")",
-        "detail": "http.main",
-        "documentation": {}
-    },
-    {
-        "label": "fetch",
-        "kind": 2,
-        "importPath": "http.main",
-        "description": "http.main",
-        "peekOfCode": "def fetch():\n    url = request.args.get(\"url\")\n    if url:\n        try:\n            r = requests.get(url, timeout=30)\n            res = r.text.splitlines()\n            return Response(res, mimetype=\"application/json\")\n        except Exception as e:\n            return str(e)\n    else:",
+        "peekOfCode": "def lite_test():\n    if request.method == \"GET\":\n        config = request.args.get(\"q\")\n    else:\n        config = request.json.get(\"q\")\n    if config:\n        return jsonify(lite)\n    else:\n        return \"N/A\"\n@app.route(\"/shell\")",
         "detail": "http.main",
         "documentation": {}
     },
@@ -133,7 +115,7 @@
         "kind": 2,
         "importPath": "http.main",
         "description": "http.main",
-        "peekOfCode": "def shell():\n    cmd = request.args.get(\"cmd\")\n    if cmd:\n        out = subprocess.run(\n            cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True\n        )\n        return Response(out.stdout, mimetype=\"text/plain\")\n    else:\n        return \"Không có lệnh shell\"",
+        "peekOfCode": "def shell():\n    cmd = request.args.get(\"cmd\")\n    if cmd:\n        out = subprocess.run(\n            cmd,\n            stdout=subprocess.PIPE,\n            stderr=subprocess.STDOUT,\n            shell=True,\n            text=True,\n            check=True,",
         "detail": "http.main",
         "documentation": {}
     },
