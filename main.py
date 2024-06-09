@@ -25,7 +25,7 @@ def lite(config):
         elapse = re.search(r"elapse: (\d+)ms", near).group(1)
         tag = near.split(" 0 ")[1].split(" elapse")[0]
         return dict(
-            fragment=tag,
+            tag=tag,
             delay=elapse,
             avg_speed=result["speed"],
             max_speed=result["maxspeed"],
