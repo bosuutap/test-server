@@ -160,7 +160,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def lite_test():\n    if request.method == \"GET\":\n        config = request.args.get(\"q\")\n    else:\n        config = request.json.get(\"q\")\n    if config:\n        return jsonify(lite)\n    else:\n        return \"N/A\"\n@app.route(\"/shell\")",
+        "peekOfCode": "def lite_test():\n    if request.method == \"GET\":\n        config = request.args.get(\"q\")\n    else:\n        config = request.json.get(\"q\")\n    if config:\n        return jsonify(lite(config))\n    else:\n        return \"N/A\"\n@app.route(\"/shell\")",
         "detail": "main",
         "documentation": {}
     },

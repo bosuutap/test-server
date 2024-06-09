@@ -42,7 +42,7 @@ def lite_test():
     else:
         config = request.json.get("q")
     if config:
-        return jsonify(lite)
+        return jsonify(lite(config))
     else:
         return "N/A"
 
